@@ -7,7 +7,7 @@ CCACHE=$(command -v ccache)
 objdir="${kernel_dir}/out"
 builddir="${kernel_dir}/build"
 ZIMAGE=$kernel_dir/out/arch/arm64/boot/Image
-CLANG_DIR=$HOME/tc/neutron-clang
+CLANG_DIR=$HOME/tc/clang
 export CONFIG_FILE="vayu_user_defconfig"
 export ARCH="arm64"
 export KBUILD_BUILD_HOST=ccrlll
@@ -16,7 +16,7 @@ export PATH="$CLANG_DIR/bin:$PATH"
 
 if ! [ -d "$CLANG_DIR" ]; then
 	echo "Toolchain not found! Cloning to $CLANG_DIR..."
-	if ! git clone -q --depth=1 --single-branch https://github.com/Neutron-Toolchains/clang-build-catalogue.git -b main $CLANG_DIR; then
+	if ! git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r522817.git -b 14.0 $CLANG_DIR; then
 		echo "Cloning failed! Aborting..."
 		exit 1
 	fi
