@@ -16,7 +16,7 @@ export PATH="$CLANG_DIR/bin:$PATH"
 
 if ! [ -d "$CLANG_DIR" ]; then
 	echo "Toolchain not found! Cloning to $CLANG_DIR..."
-	if ! git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r522817.git -b 14.0 $CLANG_DIR; then
+	if ! git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 15.0 $CLANG_DIR; then
 		echo "Cloning failed! Aborting..."
 		exit 1
 	fi
@@ -35,16 +35,16 @@ make_defconfig()
 }
 compile()
 {
-    cd ${kernel_dir}
-    echo -e ${LGR}"######### Compiling kernel #########"${NC}
-    make -j$(nproc --all) \
-    O=out \
-    ARCH=${ARCH}\
-    CC="ccache clang" \
-    AR="llvm-ar" \
+	cd ${kernel_dir}
+	echo -e ${LGR}"######### Compiling kernel #########"${NC}
+	make -j$(nproc --all) \
+	O=out \
+	ARCH=${ARCH}\
+	CC="ccache clang" \
+	AR="llvm-ar" \
 	NM="llvm-nm" \
 	LD="ld.lld" \
-    OBJCOPY="llvm-objcopy" \
+	OBJCOPY="llvm-objcopy" \
 	OBJDUMP="llvm-objdump" \
 	STRIP="llvm-strip" \
 	CROSS_COMPILE="aarch64-linux-gnu-" \
